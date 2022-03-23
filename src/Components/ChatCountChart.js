@@ -29,7 +29,7 @@ const ChartWrapper = styled.div`
 `
 
 const TopUser = styled.p`
-    margin-top: 20px;
+    margin-top: 40px;
     margin-left: 3px;
 `
 
@@ -39,12 +39,14 @@ const ChatCountChart = ({ data }) => {
         <ContainerTitle>🔥 Number of message</ContainerTitle>
             <ChartContainer>
                 <div style={{marginTop: '18px', marginLeft: '10px', width: '50%'}}>
-                    <h2>Top 10 Best Talker</h2>
-                    <TopUser>Hello</TopUser>
+                    <h2>Top 5 Best Talker</h2>
+                    {data.slice(0, 5).map((sender, index) => (
+                        <TopUser key={index}>{ index + 1 }. { sender.id }</TopUser>   
+                    ))}
                 </div>
                 <ChartWrapper>
                     <ResponsivePie
-                        style={{marginTop: '30px'}}
+                        style={{marginTop: '30px', zIndex: '1000'}}
                         data={data}
                         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                         innerRadius={0.5}
