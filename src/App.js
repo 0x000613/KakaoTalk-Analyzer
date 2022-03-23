@@ -13,7 +13,8 @@ import './Style/common.css';
 
 // Components
 import Button from './Components/Button'
-import ChatCountCart from './Components/ChatCountChart';
+import ChatCountChart from './Components/ChatCountChart';
+import WordCountChart from './Components/WordCountChart';
 
 // Styled components define (Common)
 const ContainerTitle = styled.h1`
@@ -41,6 +42,7 @@ const HeaderLogoImg = styled.img`
   position: relative;
   height: 70%;
   margin-left: 30px;
+  cursor: pointer;
 `
 
 // 로고 타이틀
@@ -48,6 +50,7 @@ const HeaderLogoTitle = styled.h1`
   color: orange;
   margin-left: 10px;
   display: inline-block;
+  cursor: pointer;
 `
 
 // 전체 요소 컨테이너
@@ -88,12 +91,17 @@ const App = () => {
   // 분석 결과 데이터 State
   const [analyzeResult, setAnalyzeResult] = useState({});
 
+  // goToMain 버튼이 클릭되었을 경우
+  const goToMainBtnClicked = () => {
+    setAnalyzeResult({});
+  }
+
   // Analyze 버튼이 클릭되었을 경우
   const AnalyzeBtnClicked = () => {
     // 입력된 값이 정상적이지 않을경우 처리 종료
     if (!chatText || chatText.trim().length <= 0 || chatText.trim() === '') { 
       setChatText('');
-      return alert('입력 값이 올바르지 않습니다.');
+      return alert('[ERR] 입력 값이 올바르지 않습니다.');
     }
 
     // 워드클라우드 데이터를 보관할 오브젝트 초기화
@@ -139,8 +147,6 @@ const App = () => {
         catch(e) {}
       }
     });
-
-    console.log(tempChatCountData);
     
     // 생성된 워드클라우드 데이터를 가공해 배열화
     Object.keys(tempWordCloudData).forEach(word => {
@@ -164,21 +170,28 @@ const App = () => {
     const analyzeResult = {
       // 대화상대명(대화방명)
       chatRoomName: chatTextArr[0].split(' ')[0],
-      wordCloudData: wordCloudData,
-      chatCountData: chatCountData
+      wordCloudData: wordCloudData.sort((a, b) => a.value - b.value).reverse(),
+      chatCountData: chatCountData.sort((a, b) => a.value - b.value).reverse()
     }
-
+    // 분석 결과가 존재하지 않을 경우 에러 처리
+    if (analyzeResult.chatCountData <= 0 || analyzeResult.wordCloudData.length <= 0) {
+      alert('[ERR] 카카오톡 채팅 데이터를 찾을 수 없습니다.\n올바른 데이터를 입력해주세요.');
+      setChatText('');
+      return
+    }
+    // 분석 결과를 anayzeResult State에 할당
     setAnalyzeResult(analyzeResult);
   }
 
   return (
     <>
       <Header>
-        <HeaderLogoImg src={ LogoImg } alt='KCA Logo' />
-        <HeaderLogoTitle>KakaoTalk Chat Analyzer</HeaderLogoTitle>
+        <HeaderLogoImg src={ LogoImg } alt='KCA Logo' onClick={ goToMainBtnClicked } />
+        <HeaderLogoTitle onClick={ goToMainBtnClicked }>KakaoTalk Chat Analyzer</HeaderLogoTitle>
       </Header>
       <MainContainer>
-        {!analyzeResult.wordCloudData ? <ContainerTitle>Chat here</ContainerTitle> : <ContainerTitle>✨ Top 50 Most used words </ContainerTitle>}
+        {!analyzeResult.wordCloudData ? <ContainerTitle>Chat paste here</ContainerTitle> : <ContainerTitle>✨ Top 50 Most used words </ContainerTitle>}
+        {/* 워드클라우드 */}
         {!analyzeResult.wordCloudData &&
           <>
             <ChatTextInputBox onChange={onChangeChatText} value={chatText} />
@@ -188,13 +201,14 @@ const App = () => {
         {analyzeResult.wordCloudData &&
           <>
           <ReactWordcloud style={{backgroundColor: '#ffffff', borderRadius: '20px', height: '400px'}} maxWords='50' words={analyzeResult.wordCloudData} />
-            <ChatCountCart data={ analyzeResult.chatCountData }/>
+          <WordCountChart data={analyzeResult.wordCloudData} />
+          <ChatCountChart data={analyzeResult.chatCountData} />
           </>
         }
 
         {/* 확인 버튼 */}
         {analyzeResult.wordCloudData &&
-          <Button height='40px' fontSize='15px' margin='25px 0' text='Go to Main' onClick={AnalyzeBtnClicked} />
+          <Button height='40px' fontSize='15px' margin='25px 0' text='Go to Main' onClick={goToMainBtnClicked} />
         }
       </MainContainer>
     </>
