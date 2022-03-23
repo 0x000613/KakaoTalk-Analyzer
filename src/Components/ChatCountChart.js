@@ -18,6 +18,7 @@ const ChartContainer = styled.div`
     display: flex;
     flex-direction: row;
     background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     box-sizing: border-box;
     height: 400px;
 `
@@ -41,7 +42,7 @@ const ChatCountChart = ({ data }) => {
                 <div style={{marginTop: '18px', marginLeft: '10px', width: '50%'}}>
                     <h2>🔥 Top 5 Most Talker</h2>
                     {data.slice(0, 5).map((sender, index) => (
-                        <TopUser key={index}>{index + 1}. {sender.id} | {sender.value} Times { index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : null }</TopUser>   
+                        <TopUser key={index}>{index + 1}. {sender.id}, {sender.value} Times { index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : null }</TopUser>   
                     ))}
                 </div>
                 <ChartWrapper>
