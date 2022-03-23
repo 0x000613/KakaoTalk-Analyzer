@@ -4,9 +4,11 @@ import { React, useState } from 'react';
 // Function modules
 import styled from 'styled-components';
 import ReactWordcloud from 'react-wordcloud';
+import { isMobile } from 'react-device-detect';
 
 // Images
 import LogoImg from './Images/KCALogo.png';
+import ErrorImg from './Images/Error.png';
 
 // Styles
 import './Style/common.css';
@@ -81,6 +83,21 @@ const ChatTextInputBox = styled.textarea`
     outline: none;
     box-shadow: 0px 0px 5px orange;
   }
+`
+
+// 모바일 컨테이너
+const MobileViewContainer = styled.div`
+  position: absolute;
+  width: 80vw;
+  height: 50vh;
+  background-color: #FFFFFF;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `
 
 const App = () => {
@@ -216,29 +233,30 @@ const App = () => {
     console.log(analyzeResult.chatTimeData);
   }
 
-  return (
+  // PC 환경일 경우에만 렌더링
+  if (!isMobile) return (
     <>
       <Header>
-        <HeaderLogoImg src={ LogoImg } alt='KCA Logo' onClick={ goToMainBtnClicked } />
-        <HeaderLogoTitle onClick={ goToMainBtnClicked }>KakaoTalk Chat Analyzer</HeaderLogoTitle>
+        <HeaderLogoImg src={LogoImg} alt='KCA Logo' onClick={goToMainBtnClicked} />
+        <HeaderLogoTitle onClick={goToMainBtnClicked}>KakaoTalk Chat Analyzer</HeaderLogoTitle>
       </Header>
       <MainContainer>
         {!analyzeResult.wordCloudData ? <ContainerTitle>Chat paste here</ContainerTitle> : <ContainerTitle>✨ Top 50 Most used words </ContainerTitle>}
         {/* 워드클라우드 */}
         {!analyzeResult.wordCloudData &&
           <>
-          <ChatTextInputBox onChange={onChangeChatText} value={chatText} placeholder={ sampleText } />
+            <ChatTextInputBox onChange={onChangeChatText} value={chatText} placeholder={sampleText} />
             <Button height='40px' fontSize='15px' margin='10px 0 0 0' text='Analyze' onClick={AnalyzeBtnClicked} />
           </>
         }
         {analyzeResult.wordCloudData &&
           <>
-          <ReactWordcloud style={{ backgroundColor: '#ffffff', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', borderRadius: '20px', height: '400px' }} maxWords='100' words={analyzeResult.wordCloudData} options={{
-            fontSizes: [30, 40]
-          }} />
-          <WordCountChart data={analyzeResult.wordCloudData} />
-          <TimeCountChart data={analyzeResult.chatTimeData} />
-          <ChatCountChart data={analyzeResult.chatCountData} />
+            <ReactWordcloud style={{ backgroundColor: '#ffffff', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', borderRadius: '20px', height: '400px' }} maxWords='100' words={analyzeResult.wordCloudData} options={{
+              fontSizes: [30, 40]
+            }} />
+            <WordCountChart data={analyzeResult.wordCloudData} />
+            <TimeCountChart data={analyzeResult.chatTimeData} />
+            <ChatCountChart data={analyzeResult.chatCountData} />
           </>
         }
 
@@ -249,6 +267,16 @@ const App = () => {
       </MainContainer>
     </>
   );
+  
+  // 모바일 환경에서 접속했을 경우
+  else if (isMobile) return (
+    <MobileViewContainer>
+      <h1>Sorry</h1>
+      <img src={ ErrorImg } alt='Error' />
+      <p>아직 모바일 환경을 지원하지 않습니다.</p>
+      <p>이용에 불편을 드려 죄송합니다.</p>
+    </MobileViewContainer>
+  )
 }
 
 export default App;
