@@ -175,7 +175,7 @@ const App = () => {
           message.split(' ').forEach(word => {
             let regexWord = word.replaceAll('ㅋ', '').replaceAll('ㅎ', '');
             // 가공된 단어가 쓰레기값 (공백이나 빈 문자열)일 경우 배열에 추가하지 않음
-            if (regexWord.trim() !== '') { 
+            if (regexWord.trim() !== '' && regexWord.trim() !== '파일' && regexWord.trim() !== '동영상' && regexWord.trim() !== '사진' && regexWord.trim() !== '이모티콘') { 
               if (!tempWordCloudData[regexWord]) tempWordCloudData[regexWord] = 0;
               tempWordCloudData[regexWord] += 1;
             }
@@ -244,7 +244,7 @@ const App = () => {
         <HeaderLogoTitle onClick={goToMainBtnClicked}>KakaoTalk Chat Analyzer</HeaderLogoTitle>
       </Header>
       <MainContainer>
-        {!analyzeResult.wordCloudData ? <ContainerTitle>Chat paste here</ContainerTitle> : <ContainerTitle>✨ Top 50 Most used words </ContainerTitle>}
+        {!analyzeResult.wordCloudData ? <ContainerTitle>Chat paste here</ContainerTitle> : <ContainerTitle>✨ Top 100 Most used words </ContainerTitle>}
         {/* 워드클라우드 */}
         {!analyzeResult.wordCloudData &&
           <>
@@ -255,7 +255,7 @@ const App = () => {
         {analyzeResult.wordCloudData &&
           <>
             <ReactWordcloud style={{ backgroundColor: '#ffffff', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', borderRadius: '20px', height: '400px' }} maxWords='100' words={analyzeResult.wordCloudData} options={{
-              fontSizes: [30, 40]
+              fontSizes: [30, 100]
             }} />
             <WordCountChart data={analyzeResult.wordCloudData} />
             <TimeCountChart data={analyzeResult.chatTimeData} />
