@@ -174,8 +174,11 @@ const App = () => {
           // 채팅 워드클라우드 분석
           message.split(' ').forEach(word => {
             let regexWord = word.replaceAll('ㅋ', '').replaceAll('ㅎ', '');
-            if (!tempWordCloudData[regexWord]) tempWordCloudData[regexWord] = 0;
-            tempWordCloudData[regexWord] += 1;
+            // 가공된 단어가 쓰레기값 (공백이나 빈 문자열)일 경우 배열에 추가하지 않음
+            if (regexWord.trim() !== '') { 
+              if (!tempWordCloudData[regexWord]) tempWordCloudData[regexWord] = 0;
+              tempWordCloudData[regexWord] += 1;
+            }
           });
         }
         catch(e) {}
