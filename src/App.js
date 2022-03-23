@@ -15,6 +15,7 @@ import './Style/common.css';
 import Button from './Components/Button'
 import ChatCountChart from './Components/ChatCountChart';
 import WordCountChart from './Components/WordCountChart';
+import TimeCountChart from './Components/TimeCountChart';
 
 // Styled components define (Common)
 const ContainerTitle = styled.h1`
@@ -119,6 +120,9 @@ const App = () => {
     // 채팅 횟수를 기록할 오브젝트 초기화
     let tempChatCountData = {};
     let chatCountData = [];
+    // 채팅 시간을 기록할 오브젝트 초기화
+    let tempChatTimeData = {};
+    let chatTimeData = [];
     // 채팅 내용을 상세히 기록할 배열 초기화
     let chatTextDetailArr = [];
     // 개행 라인별로 배열에 저장
@@ -145,6 +149,10 @@ const App = () => {
           tempObj['chatTime'] = chatTime;
           tempObj['message'] = message;
           chatTextDetailArr.push(tempObj);
+          
+          // 채팅 시간을 chatTimeData에 저장
+          if (!tempChatTimeData[chatTime.split(' ')[0] === '오후' ? String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')) + 12) : String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')))]) tempChatTimeData[chatTime.split(' ')[0] === '오후' ? String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')) + 12) : String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')))] = 0;
+          tempChatTimeData[chatTime.split(' ')[0] === '오후' ? String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')) + 12) : String(Number(chatTime.split(':')[0].replace(/[^0-9]/g, '')))] += 1;
 
           // 채팅 워드클라우드 분석
           message.split(' ').forEach(word => {
@@ -174,14 +182,29 @@ const App = () => {
       tempObj['color'] = "#" + Math.floor(Math.random() * 16777215).toString(16);
       chatCountData.push(tempObj);
     })
+
+    // 생성된 채팅시간 데이터를 가공해 배열화
+    Object.keys(tempChatTimeData).forEach(time => {
+      let tempObj = {};
+      tempObj['time'] = time
+      tempObj['value'] = tempChatTimeData[time];
+      chatTimeData.push(tempObj);
+    })
+    chatTimeData.sort((a, b) => a.time - b.time);
+    Object.keys(chatTimeData).forEach(time => {
+      if (chatTimeData[time].time.length < 2) chatTimeData[time].time = '0' + chatTimeData[time].time
+      chatTimeData[time].time += '시'
+    })
     
     // 분석 결과를 저장할 변수
     const analyzeResult = {
       // 대화상대명(대화방명)
       chatRoomName: chatTextArr[0].split(' ')[0],
       wordCloudData: wordCloudData.sort((a, b) => a.value - b.value).reverse(),
-      chatCountData: chatCountData.sort((a, b) => a.value - b.value).reverse()
+      chatCountData: chatCountData.sort((a, b) => a.value - b.value).reverse(),
+      chatTimeData: chatTimeData.sort((a, b) => a.time - b.time),
     }
+
     // 분석 결과가 존재하지 않을 경우 에러 처리
     if (analyzeResult.chatCountData <= 0 || analyzeResult.wordCloudData.length <= 0) {
       alert('[ERR] 카카오톡 채팅 데이터를 찾을 수 없습니다.\n올바른 데이터를 입력해주세요.');
@@ -190,7 +213,7 @@ const App = () => {
     }
     // 분석 결과를 anayzeResult State에 할당
     setAnalyzeResult(analyzeResult);
-    console.log(analyzeResult.chatCountData);
+    console.log(analyzeResult.chatTimeData);
   }
 
   return (
@@ -210,8 +233,11 @@ const App = () => {
         }
         {analyzeResult.wordCloudData &&
           <>
-          <ReactWordcloud style={{backgroundColor: '#ffffff', borderRadius: '20px', height: '400px'}} maxWords='50' words={analyzeResult.wordCloudData} />
+          <ReactWordcloud style={{ backgroundColor: '#ffffff', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', borderRadius: '20px', height: '400px' }} maxWords='100' words={analyzeResult.wordCloudData} options={{
+            fontSizes: [30, 40]
+          }} />
           <WordCountChart data={analyzeResult.wordCloudData} />
+          <TimeCountChart data={analyzeResult.chatTimeData} />
           <ChatCountChart data={analyzeResult.chatCountData} />
           </>
         }
