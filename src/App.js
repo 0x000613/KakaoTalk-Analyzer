@@ -83,6 +83,15 @@ const ChatTextInputBox = styled.textarea`
 `
 
 const App = () => {
+  // Sample Text
+  const sampleText = `[라이언] [오후 5:57] 안녕하세요 이 사이트는 어떻게 사용하는건가요?
+[콘] [오후 5:57] 여기에 분석하고싶은 채팅방 기록을 붙여넣으면 채팅방 내용을 분석해서 시각화해주는 도구입니다~~
+[라이언]] [오후 5:58] 아하! 그런데 대화내용은 어디서 가져오는거죠??
+[튜브] [오후 5:59] 카카오톡 대화방에서 대화기록 내보내기로 내보낸 본문 내용 전체를 여기 붙여넣으면 되요~
+[라이언] [오후 5:59] 넵넵!
+[제이지] [오후 6:00] 근데 제 개인정보는 안전한건가요?
+[무지] [오후 6:00] 서버와의 통신 기능이 없어서 데이터를 수집할 수 없는 구조에요!`
+  
   // 채팅 내용 Input State
   const [chatText, setChatText] = useState('');
   // 채팅 내용 Input State 변경 감지 함수
@@ -101,7 +110,7 @@ const App = () => {
     // 입력된 값이 정상적이지 않을경우 처리 종료
     if (!chatText || chatText.trim().length <= 0 || chatText.trim() === '') { 
       setChatText('');
-      return alert('[ERR] 입력 값이 올바르지 않습니다.');
+      return alert('[ERR] 입력 값이 존재하지 않습니다.');
     }
 
     // 워드클라우드 데이터를 보관할 오브젝트 초기화
@@ -181,6 +190,7 @@ const App = () => {
     }
     // 분석 결과를 anayzeResult State에 할당
     setAnalyzeResult(analyzeResult);
+    console.log(analyzeResult.chatCountData);
   }
 
   return (
@@ -194,7 +204,7 @@ const App = () => {
         {/* 워드클라우드 */}
         {!analyzeResult.wordCloudData &&
           <>
-            <ChatTextInputBox onChange={onChangeChatText} value={chatText} />
+          <ChatTextInputBox onChange={onChangeChatText} value={chatText} placeholder={ sampleText } />
             <Button height='40px' fontSize='15px' margin='10px 0 0 0' text='Analyze' onClick={AnalyzeBtnClicked} />
           </>
         }

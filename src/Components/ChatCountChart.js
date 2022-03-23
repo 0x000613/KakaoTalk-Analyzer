@@ -36,12 +36,12 @@ const TopUser = styled.p`
 const ChatCountChart = ({ data }) => {
     return (
         <>
-        <ContainerTitle>🔥 Number of message</ContainerTitle>
+        <ContainerTitle>🌟 Number of message</ContainerTitle>
             <ChartContainer>
                 <div style={{marginTop: '18px', marginLeft: '10px', width: '50%'}}>
-                    <h2>Top 5 Best Talker</h2>
+                    <h2>🔥 Top 5 Most Talker</h2>
                     {data.slice(0, 5).map((sender, index) => (
-                        <TopUser key={index}>{ index + 1 }. { sender.id }</TopUser>   
+                        <TopUser key={index}>{index + 1}. {sender.id} | {sender.value} Times { index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : null }</TopUser>   
                     ))}
                 </div>
                 <ChartWrapper>
