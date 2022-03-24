@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# KakaoTalk-Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+카카오톡 대화내용을 분석하여 시각화해주는 웹어플리케이션입니다.
 
-## Available Scripts
+## Stacks
 
-In the project directory, you can run:
+해당 프로젝트에 사용된 기술 스택을 정리합니다.
 
-### `npm start`
+#### Saas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Language
 
-### `npm test`
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Refference
+[React Nivo](https://nivo.rocks): 막대그래프, 파이그래프등 데이터 시각화에 사용되었습니다.  
+[React Wordcloud](https://www.npmjs.com/package/react-wordcloud): 채팅 데이터 워드클라우드 시각화에 사용되었습니다.  
 
-### `npm run build`
+![2022-03-24 08 07 54](https://user-images.githubusercontent.com/77450463/159844085-eec139bb-5dc1-49fb-bbd3-fbba7fe693f2.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 상위 100개 단어 워드클라우드 시각화 기능
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+채팅방에서 가장 많이 사용/언급된 상위 100개의 단어를 추출하여 워드클라우드 이미지를 생성합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![2022-03-24 08 08 31](https://user-images.githubusercontent.com/77450463/159850554-fc5850c1-83e6-43ed-bc2b-e237cca3a07f.gif)
 
-### `npm run eject`
+### 상위 10, 20, 30 단어 그래프 시각화 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+채팅방에서 가장 많이 사용/언급된 상위 10, 20, 30개의 단어를 추출하여 그래프를 생성합니다.  
+상단 버튼을 클릭하여 총 몇개의 단어를 그래프에 표시할것인지 선택이 가능합니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![2022-03-24 08 08 50](https://user-images.githubusercontent.com/77450463/159850733-f8482626-357e-43cf-99e0-abdd9b1b7d2b.gif)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 가장 채팅이 활발한 시간대 그래프 시각화 기능
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+오전 -> 오후 순으로 시간대가 정렬되는 그래프를 생성합니다.  
+시각화 데이터로는 매 정각에 발생된 채팅 횟수를 표기합니다.
 
-## Learn More
+![2022-03-24 08 09 19](https://user-images.githubusercontent.com/77450463/159850967-7d32e91a-49a7-4684-b997-3d7cb37ac6b4.gif)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 가장 채팅을 많이 보낸 사용자 추적 시각화 기능
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+가장 채팅을 많이 보낸 유저를 추적하여 파이 그래프로 시각화, 가장 채팅을 많이 보낸 유저 상우 5명을 표기합니다.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![2022-03-24 08 09 37](https://user-images.githubusercontent.com/77450463/159851067-23599da3-5217-47e8-ba61-c621d8b38dbf.gif)
