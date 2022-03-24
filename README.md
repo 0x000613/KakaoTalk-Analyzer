@@ -2,6 +2,8 @@
 
 카카오톡 대화내용을 분석하여 시각화해주는 웹어플리케이션입니다.
 
+[Demo](kakaotalk-analyzer.vercel.app)
+
 ## Stacks
 
 해당 프로젝트에 사용된 기술 스택을 정리합니다.
