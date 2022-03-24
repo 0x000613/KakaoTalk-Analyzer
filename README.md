@@ -1,6 +1,6 @@
 # KakaoTalk-Analyzer
 
-카카오톡 대화내용을 분석하여 시각화해주는 웹어플리케이션입니다.
+카카오톡 채팅 분석/시각화 웹애플리케이션입니다.
 
 [Demo](kakaotalk-analyzer.vercel.app)
 
