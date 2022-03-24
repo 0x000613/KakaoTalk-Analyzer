@@ -15,7 +15,6 @@
 #### Language
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
 ## Refference
 [React Nivo](https://nivo.rocks): 막대그래프, 파이그래프등 데이터 시각화에 사용되었습니다.  
