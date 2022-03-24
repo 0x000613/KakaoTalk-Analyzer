@@ -20,11 +20,9 @@
 [React Nivo](https://nivo.rocks): 막대그래프, 파이그래프등 데이터 시각화에 사용되었습니다.  
 [React Wordcloud](https://www.npmjs.com/package/react-wordcloud): 채팅 데이터 워드클라우드 시각화에 사용되었습니다.  
 
-![2022-03-24 08 07 54](https://user-images.githubusercontent.com/77450463/159844085-eec139bb-5dc1-49fb-bbd3-fbba7fe693f2.gif)
-
 ## Overview
 
-제공하는 기능 정보입니다.
+![2022-03-24 08 07 54](https://user-images.githubusercontent.com/77450463/159844085-eec139bb-5dc1-49fb-bbd3-fbba7fe693f2.gif)
 
 ### 상위 100개 단어 워드클라우드 시각화 기능
 
