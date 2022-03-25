@@ -2,7 +2,7 @@
 
 카카오톡 채팅 분석/시각화 웹애플리케이션입니다.
 
-[Demo](kakaotalk-analyzer.vercel.app)
+[Demo](https://kakaotalk-analyzer.vercel.app)
 
 ## Stacks
 
